@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Notebook1",
+				"name": "Notebook3",
 				"type": "DatabricksNotebook",
 				"dependsOn": [],
 				"policy": {
@@ -18,7 +18,7 @@
 					"notebookPath": "/Users/jaquelinelove2@hotmail.com/Transferencia_de_datos_capaplata"
 				},
 				"linkedServiceName": {
-					"referenceName": "AzureDatabricks_DataFactory2",
+					"referenceName": "AzureDatabricks_Datafactory3",
 					"type": "LinkedServiceReference"
 				}
 			}
