@@ -1,0 +1,9 @@
+{
+	"name": "palominotfactory",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "1fdaeac9-f760-4f66-af3f-0342d757106f",
+		"tenantId": "78c790e3-76c2-4887-a3b8-5f387afecc99"
+	}
+}
