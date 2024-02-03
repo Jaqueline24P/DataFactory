@@ -1,5 +1,5 @@
 {
-	"name": "DelimitedText1",
+	"name": "OutputFilesDS",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "OutputFiles_ADLS",

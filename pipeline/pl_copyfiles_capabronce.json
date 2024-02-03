@@ -79,7 +79,7 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "DelimitedText1",
+									"referenceName": "OutputFilesDS",
 									"type": "DatasetReference"
 								}
 							]
