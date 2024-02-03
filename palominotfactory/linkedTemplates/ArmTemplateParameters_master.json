@@ -5,6 +5,12 @@
 		"factoryName": {
 			"value": "palominotfactory"
 		},
+		"AzureDatabricks_DataFactory2_accessToken": {
+			"value": ""
+		},
+		"AzureDatabricks_Datafactory_accessToken": {
+			"value": ""
+		},
 		"InputFieldsCopy_ADLS_accountKey": {
 			"value": ""
 		},
@@ -13,6 +19,12 @@
 		},
 		"OutputFiles_ADLS_accountKey": {
 			"value": ""
+		},
+		"AzureDatabricks_DataFactory2_properties_typeProperties_existingClusterId": {
+			"value": "0203-174853-m4e8va9n"
+		},
+		"AzureDatabricks_Datafactory_properties_typeProperties_existingClusterId": {
+			"value": "0203-174853-m4e8va9n"
 		},
 		"InputFieldsCopy_ADLS_properties_typeProperties_url": {
 			"value": "https://palominotstorage.dfs.core.windows.net/"

@@ -7,6 +7,14 @@
 			"metadata": "Nombre de instancia de Data Factory",
 			"defaultValue": "palominotfactory"
 		},
+		"AzureDatabricks_DataFactory2_accessToken": {
+			"type": "secureString",
+			"metadata": "Cadena protegida para \"accessToken\"de \"AzureDatabricks_DataFactory2\""
+		},
+		"AzureDatabricks_Datafactory_accessToken": {
+			"type": "secureString",
+			"metadata": "Cadena protegida para \"accessToken\"de \"AzureDatabricks_Datafactory\""
+		},
 		"InputFieldsCopy_ADLS_accountKey": {
 			"type": "secureString",
 			"metadata": "Cadena protegida para \"accountKey\"de \"InputFieldsCopy_ADLS\""
@@ -18,6 +26,14 @@
 		"OutputFiles_ADLS_accountKey": {
 			"type": "secureString",
 			"metadata": "Cadena protegida para \"accountKey\"de \"OutputFiles_ADLS\""
+		},
+		"AzureDatabricks_DataFactory2_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "0203-174853-m4e8va9n"
+		},
+		"AzureDatabricks_Datafactory_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "0203-174853-m4e8va9n"
 		},
 		"InputFieldsCopy_ADLS_properties_typeProperties_url": {
 			"type": "string",
@@ -58,6 +74,12 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"AzureDatabricks_DataFactory2_accessToken": {
+						"value": "[parameters('AzureDatabricks_DataFactory2_accessToken')]"
+					},
+					"AzureDatabricks_Datafactory_accessToken": {
+						"value": "[parameters('AzureDatabricks_Datafactory_accessToken')]"
+					},
 					"InputFieldsCopy_ADLS_accountKey": {
 						"value": "[parameters('InputFieldsCopy_ADLS_accountKey')]"
 					},
@@ -66,6 +88,12 @@
 					},
 					"OutputFiles_ADLS_accountKey": {
 						"value": "[parameters('OutputFiles_ADLS_accountKey')]"
+					},
+					"AzureDatabricks_DataFactory2_properties_typeProperties_existingClusterId": {
+						"value": "[parameters('AzureDatabricks_DataFactory2_properties_typeProperties_existingClusterId')]"
+					},
+					"AzureDatabricks_Datafactory_properties_typeProperties_existingClusterId": {
+						"value": "[parameters('AzureDatabricks_Datafactory_properties_typeProperties_existingClusterId')]"
 					},
 					"InputFieldsCopy_ADLS_properties_typeProperties_url": {
 						"value": "[parameters('InputFieldsCopy_ADLS_properties_typeProperties_url')]"
