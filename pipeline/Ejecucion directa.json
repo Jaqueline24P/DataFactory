@@ -5,10 +5,18 @@
 			{
 				"name": "Ejecucion Plata",
 				"type": "ExecutePipeline",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Ejecucion Bronce",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
 				"policy": {
 					"secureInput": false
 				},
+				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
 						"referenceName": "DataFactoryPlata",
@@ -35,6 +43,22 @@
 				"typeProperties": {
 					"pipeline": {
 						"referenceName": "DataFactoryOro",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "Ejecucion Bronce",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_copyfiles_capabronce",
 						"type": "PipelineReference"
 					},
 					"waitOnCompletion": true
