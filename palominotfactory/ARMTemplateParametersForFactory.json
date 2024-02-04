@@ -11,6 +11,9 @@
 		"AzureDatabricks_Datafactory_accessToken": {
 			"value": ""
 		},
+		"AzureDatabricks_Datafactory3_accessToken": {
+			"value": ""
+		},
 		"InputFieldsCopy_ADLS_accountKey": {
 			"value": ""
 		},
@@ -24,6 +27,9 @@
 			"value": "0203-174853-m4e8va9n"
 		},
 		"AzureDatabricks_Datafactory_properties_typeProperties_existingClusterId": {
+			"value": "0203-174853-m4e8va9n"
+		},
+		"AzureDatabricks_Datafactory3_properties_typeProperties_existingClusterId": {
 			"value": "0203-174853-m4e8va9n"
 		},
 		"InputFieldsCopy_ADLS_properties_typeProperties_url": {

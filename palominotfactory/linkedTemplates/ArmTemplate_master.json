@@ -15,6 +15,10 @@
 			"type": "secureString",
 			"metadata": "Cadena protegida para \"accessToken\"de \"AzureDatabricks_Datafactory\""
 		},
+		"AzureDatabricks_Datafactory3_accessToken": {
+			"type": "secureString",
+			"metadata": "Cadena protegida para \"accessToken\"de \"AzureDatabricks_Datafactory3\""
+		},
 		"InputFieldsCopy_ADLS_accountKey": {
 			"type": "secureString",
 			"metadata": "Cadena protegida para \"accountKey\"de \"InputFieldsCopy_ADLS\""
@@ -32,6 +36,10 @@
 			"defaultValue": "0203-174853-m4e8va9n"
 		},
 		"AzureDatabricks_Datafactory_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "0203-174853-m4e8va9n"
+		},
+		"AzureDatabricks_Datafactory3_properties_typeProperties_existingClusterId": {
 			"type": "string",
 			"defaultValue": "0203-174853-m4e8va9n"
 		},
@@ -80,6 +88,9 @@
 					"AzureDatabricks_Datafactory_accessToken": {
 						"value": "[parameters('AzureDatabricks_Datafactory_accessToken')]"
 					},
+					"AzureDatabricks_Datafactory3_accessToken": {
+						"value": "[parameters('AzureDatabricks_Datafactory3_accessToken')]"
+					},
 					"InputFieldsCopy_ADLS_accountKey": {
 						"value": "[parameters('InputFieldsCopy_ADLS_accountKey')]"
 					},
@@ -94,6 +105,9 @@
 					},
 					"AzureDatabricks_Datafactory_properties_typeProperties_existingClusterId": {
 						"value": "[parameters('AzureDatabricks_Datafactory_properties_typeProperties_existingClusterId')]"
+					},
+					"AzureDatabricks_Datafactory3_properties_typeProperties_existingClusterId": {
+						"value": "[parameters('AzureDatabricks_Datafactory3_properties_typeProperties_existingClusterId')]"
 					},
 					"InputFieldsCopy_ADLS_properties_typeProperties_url": {
 						"value": "[parameters('InputFieldsCopy_ADLS_properties_typeProperties_url')]"

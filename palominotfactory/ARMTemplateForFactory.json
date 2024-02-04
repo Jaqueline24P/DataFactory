@@ -15,6 +15,10 @@
 			"type": "secureString",
 			"metadata": "Cadena protegida para \"accessToken\"de \"AzureDatabricks_Datafactory\""
 		},
+		"AzureDatabricks_Datafactory3_accessToken": {
+			"type": "secureString",
+			"metadata": "Cadena protegida para \"accessToken\"de \"AzureDatabricks_Datafactory3\""
+		},
 		"InputFieldsCopy_ADLS_accountKey": {
 			"type": "secureString",
 			"metadata": "Cadena protegida para \"accountKey\"de \"InputFieldsCopy_ADLS\""
@@ -32,6 +36,10 @@
 			"defaultValue": "0203-174853-m4e8va9n"
 		},
 		"AzureDatabricks_Datafactory_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "0203-174853-m4e8va9n"
+		},
+		"AzureDatabricks_Datafactory3_properties_typeProperties_existingClusterId": {
 			"type": "string",
 			"defaultValue": "0203-174853-m4e8va9n"
 		},
@@ -53,13 +61,49 @@
 	},
 	"resources": [
 		{
-			"name": "[concat(parameters('factoryName'), '/DataFactory')]",
+			"name": "[concat(parameters('factoryName'), '/DataFactoryOro')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"activities": [
 					{
-						"name": "Notebook1",
+						"name": "Notebook3_copy1",
+						"type": "DatabricksNotebook",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Users/jaquelinelove2@hotmail.com/Transferir_datos_a_Capaoro"
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureDatabricks_Datafactory3",
+							"type": "LinkedServiceReference"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDatabricks_Datafactory3')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DataFactoryPlata')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Notebook3",
 						"type": "DatabricksNotebook",
 						"dependsOn": [],
 						"policy": {
@@ -74,7 +118,7 @@
 							"notebookPath": "/Users/jaquelinelove2@hotmail.com/Transferencia_de_datos_capaplata"
 						},
 						"linkedServiceName": {
-							"referenceName": "AzureDatabricks_DataFactory2",
+							"referenceName": "AzureDatabricks_Datafactory3",
 							"type": "LinkedServiceReference"
 						}
 					}
@@ -85,7 +129,65 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureDatabricks_DataFactory2')]"
+				"[concat(variables('factoryId'), '/linkedServices/AzureDatabricks_Datafactory3')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Ejecucion directa')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Ejecucion Plata",
+						"type": "ExecutePipeline",
+						"dependsOn": [],
+						"policy": {
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "DataFactoryPlata",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					},
+					{
+						"name": "Ejecucion Oro",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "Ejecucion Plata",
+								"dependencyConditions": [
+									"Completed"
+								]
+							}
+						],
+						"policy": {
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "DataFactoryOro",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/DataFactoryPlata')]",
+				"[concat(variables('factoryId'), '/pipelines/DataFactoryOro')]"
 			]
 		},
 		{
@@ -381,6 +483,24 @@
 						"value": "[parameters('AzureDatabricks_Datafactory_accessToken')]"
 					},
 					"existingClusterId": "[parameters('AzureDatabricks_Datafactory_properties_typeProperties_existingClusterId')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureDatabricks_Datafactory3')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureDatabricks",
+				"typeProperties": {
+					"domain": "https://adb-5544957723683234.14.azuredatabricks.net",
+					"accessToken": {
+						"type": "SecureString",
+						"value": "[parameters('AzureDatabricks_Datafactory3_accessToken')]"
+					},
+					"existingClusterId": "[parameters('AzureDatabricks_Datafactory3_properties_typeProperties_existingClusterId')]"
 				}
 			},
 			"dependsOn": []
