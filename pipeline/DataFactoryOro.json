@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Transformacion datoas - Capa Oro",
+				"name": "Transferir datos - Capa Oro",
 				"type": "DatabricksNotebook",
 				"dependsOn": [],
 				"policy": {
