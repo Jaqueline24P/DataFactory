@@ -172,7 +172,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "Transformacion datoas - Capa Oro",
+						"name": "Transferir datos - Capa Oro",
 						"type": "DatabricksNotebook",
 						"dependsOn": [],
 						"policy": {
@@ -208,7 +208,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "tA",
+						"name": "Transferir datos - Capa Plata",
 						"type": "DatabricksNotebook",
 						"dependsOn": [],
 						"policy": {
@@ -358,64 +358,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Ejecucion directa')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Ejecucion Plata",
-						"type": "ExecutePipeline",
-						"dependsOn": [],
-						"policy": {
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"pipeline": {
-								"referenceName": "DataFactoryPlata",
-								"type": "PipelineReference"
-							},
-							"waitOnCompletion": true,
-							"parameters": {}
-						}
-					},
-					{
-						"name": "Ejecucion Oro",
-						"type": "ExecutePipeline",
-						"dependsOn": [
-							{
-								"activity": "Ejecucion Plata",
-								"dependencyConditions": [
-									"Completed"
-								]
-							}
-						],
-						"policy": {
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"pipeline": {
-								"referenceName": "DataFactoryOro",
-								"type": "PipelineReference"
-							},
-							"waitOnCompletion": true,
-							"parameters": {}
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/DataFactoryPlata')]",
-				"[concat(variables('factoryId'), '/pipelines/DataFactoryOro')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/pl_copyfiles_capabronce')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -554,6 +496,89 @@
 				"[concat(variables('factoryId'), '/datasets/InputFilesDS')]",
 				"[concat(variables('factoryId'), '/datasets/InputFilesCopyDS')]",
 				"[concat(variables('factoryId'), '/datasets/OutputFilesDS')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Ejecucion directa')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Ejecucion Plata",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "Ejecucion Bronce",
+								"dependencyConditions": [
+									"Completed"
+								]
+							}
+						],
+						"policy": {
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "DataFactoryPlata",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					},
+					{
+						"name": "Ejecucion Oro",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "Ejecucion Plata",
+								"dependencyConditions": [
+									"Completed"
+								]
+							}
+						],
+						"policy": {
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "DataFactoryOro",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					},
+					{
+						"name": "Ejecucion Bronce",
+						"type": "ExecutePipeline",
+						"dependsOn": [],
+						"policy": {
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "pl_copyfiles_capabronce",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/DataFactoryPlata')]",
+				"[concat(variables('factoryId'), '/pipelines/DataFactoryOro')]",
+				"[concat(variables('factoryId'), '/pipelines/pl_copyfiles_capabronce')]"
 			]
 		}
 	]

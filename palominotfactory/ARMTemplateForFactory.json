@@ -67,7 +67,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "Transformacion datoas - Capa Oro",
+						"name": "Transferir datos - Capa Oro",
 						"type": "DatabricksNotebook",
 						"dependsOn": [],
 						"policy": {
@@ -103,7 +103,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "tA",
+						"name": "Transferir datos - Capa Plata",
 						"type": "DatabricksNotebook",
 						"dependsOn": [],
 						"policy": {
@@ -141,7 +141,14 @@
 					{
 						"name": "Ejecucion Plata",
 						"type": "ExecutePipeline",
-						"dependsOn": [],
+						"dependsOn": [
+							{
+								"activity": "Ejecucion Bronce",
+								"dependencyConditions": [
+									"Completed"
+								]
+							}
+						],
 						"policy": {
 							"secureInput": false
 						},
@@ -178,6 +185,23 @@
 							"waitOnCompletion": true,
 							"parameters": {}
 						}
+					},
+					{
+						"name": "Ejecucion Bronce",
+						"type": "ExecutePipeline",
+						"dependsOn": [],
+						"policy": {
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "pl_copyfiles_capabronce",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
 					}
 				],
 				"policy": {
@@ -187,7 +211,8 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/DataFactoryPlata')]",
-				"[concat(variables('factoryId'), '/pipelines/DataFactoryOro')]"
+				"[concat(variables('factoryId'), '/pipelines/DataFactoryOro')]",
+				"[concat(variables('factoryId'), '/pipelines/pl_copyfiles_capabronce')]"
 			]
 		},
 		{
