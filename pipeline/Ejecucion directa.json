@@ -3,27 +3,26 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Execute Pipeline1",
+				"name": "Ejecucion Plata",
 				"type": "ExecutePipeline",
 				"dependsOn": [],
 				"policy": {
 					"secureInput": false
 				},
-				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
-						"referenceName": "DataFactory",
+						"referenceName": "DataFactoryPlata",
 						"type": "PipelineReference"
 					},
 					"waitOnCompletion": true
 				}
 			},
 			{
-				"name": "Execute Pipeline2",
+				"name": "Ejecucion Oro",
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
-						"activity": "Execute Pipeline1",
+						"activity": "Ejecucion Plata",
 						"dependencyConditions": [
 							"Completed"
 						]
@@ -35,7 +34,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
-						"referenceName": "DataFactory",
+						"referenceName": "DataFactoryOro",
 						"type": "PipelineReference"
 					},
 					"waitOnCompletion": true
