@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Notebook3",
+				"name": "Transferir datos - Capa Plata",
 				"type": "DatabricksNotebook",
 				"dependsOn": [],
 				"policy": {
