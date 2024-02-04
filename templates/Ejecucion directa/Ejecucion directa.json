@@ -1,0 +1,132 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Nombre de instancia de Data Factory"
+		},
+		"AzureDatabricks_Datafactory3": {
+			"type": "string"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/Ejecucion directa')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Ejecucion Plata",
+						"type": "ExecutePipeline",
+						"dependsOn": [],
+						"policy": {
+							"secureInput": false
+						},
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "DataFactoryPlata",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true
+						}
+					},
+					{
+						"name": "Ejecucion Oro",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "Ejecucion Plata",
+								"dependencyConditions": [
+									"Completed"
+								]
+							}
+						],
+						"policy": {
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "DataFactoryOro",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true
+						}
+					}
+				],
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/DataFactoryPlata')]",
+				"[concat(variables('factoryId'), '/pipelines/DataFactoryOro')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DataFactoryPlata')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Notebook3",
+						"type": "DatabricksNotebook",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Users/jaquelinelove2@hotmail.com/Transferencia_de_datos_capaplata"
+						},
+						"linkedServiceName": {
+							"referenceName": "[parameters('AzureDatabricks_Datafactory3')]",
+							"type": "LinkedServiceReference"
+						}
+					}
+				],
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DataFactoryOro')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Notebook3_copy1",
+						"type": "DatabricksNotebook",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Users/jaquelinelove2@hotmail.com/Transferir_datos_a_Capaoro"
+						},
+						"linkedServiceName": {
+							"referenceName": "[parameters('AzureDatabricks_Datafactory3')]",
+							"type": "LinkedServiceReference"
+						}
+					}
+				],
+				"annotations": []
+			},
+			"dependsOn": []
+		}
+	]
+}
