@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Notebook3_copy1",
+				"name": "Transformacion datoas - Capa Oro",
 				"type": "DatabricksNotebook",
 				"dependsOn": [],
 				"policy": {
