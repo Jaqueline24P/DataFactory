@@ -21,6 +21,26 @@
 					"referenceName": "AzureDatabricks_Datafactory3",
 					"type": "LinkedServiceReference"
 				}
+			},
+			{
+				"name": "Notebook3_copy1",
+				"type": "DatabricksNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/jaquelinelove2@hotmail.com/Transferencia_de_datos_capaplata"
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureDatabricks_Datafactory3",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"annotations": []
